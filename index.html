@@ -972,7 +972,7 @@
             line-height: 1.5;
         }
 
-        /* Side menu from a1 */
+        /* Side menu */
         .side-menu {
             position: fixed;
             top: 0;
@@ -1097,7 +1097,7 @@
             margin-bottom: 4px;
         }
 
-        /* Auth screen styles from a1 */
+        /* Auth screen styles */
         .auth-screen {
             position: fixed;
             top: 0;
@@ -1830,7 +1830,7 @@
             animation: spin 1s linear infinite;
         }
 
-        /* Other required styles from a1 but adapt to new layout */
+        /* Other required styles but adapt to new layout */
         .overlay {
             position: fixed;
             top: 0;
@@ -2236,6 +2236,86 @@
             color: var(--text-color);
         }
 
+        /* Info Modal */
+        .info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .info-modal.active {
+            display: flex;
+        }
+
+        .info-modal-content {
+            background-color: var(--bg-color);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .info-modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .info-modal-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .info-modal-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .info-modal-text h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-modal-text h3:first-child {
+            margin-top: 0;
+        }
+
+        .info-modal-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .info-modal-button {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .info-modal-button:hover {
+            background-color: #4a49c0;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .header {
@@ -2303,18 +2383,9 @@
                 width: 100%;
                 max-width: 200px;
             }
-        }
 
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #181818;
-                --text-color: #ffffff;
-                --border-color: #3e4042;
-                --secondary-color: #2c2c2c;
-                --card-bg: #2c2c2c;
-                --card-border: #404040;
-                --shadow: rgba(0, 0, 0, 0.3);
+            .info-modal-content {
+                padding: 20px;
             }
         }
     </style>
@@ -2467,6 +2538,21 @@
         </div>
     </div>
 
+    <!-- Info Modal -->
+    <div class="info-modal" id="info-modal">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <div class="info-modal-title" id="info-modal-title">Conditions d'utilisation</div>
+            </div>
+            <div class="info-modal-text" id="info-modal-text">
+                <!-- Content will be filled dynamically -->
+            </div>
+            <div class="info-modal-buttons">
+                <button class="info-modal-button" id="info-modal-close">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <div class="header">
         <div class="header-left">
@@ -2506,17 +2592,11 @@
         <!-- AI Forecasts Section -->
         <div id="ai-forecasts-section" class="section">
             <div class="ai-forecasts-tabs">
-                <div class="ai-forecast-tab active" data-tab="combines">Combinés</div>
-                <div class="ai-forecast-tab" data-tab="ia-singles">Singles Premium</div>
+                <div class="ai-forecast-tab active" data-tab="ia-singles">Singles Premium</div>
                 <div class="ai-forecast-tab" data-tab="safes">Safes</div>
             </div>
             
-            <div class="ai-forecasts-content active" id="combines-content">
-                <div class="forecasts-container" id="combines-list">
-                </div>
-            </div>
-            
-            <div class="ai-forecasts-content" id="ia-singles-content">
+            <div class="ai-forecasts-content active" id="ia-singles-content">
                 <div class="forecasts-container" id="ia-singles-list">
                 </div>
             </div>
@@ -2648,7 +2728,7 @@
                             <div class="setting-label">Mode sombre</div>
                         </div>
                         <label class="switch">
-                            <input type="checkbox" id="dark-toggle" checked>
+                            <input type="checkbox" id="dark-toggle">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -2896,7 +2976,7 @@
         let currentUserData = null;
         let isAdmin = false;
         let currentSection = 'forecasts';
-        let currentForecastTab = 'combines';
+        let currentForecastTab = 'ia-singles';
         let forecastsCache = {};
         let selectedForecast = null;
         let hasNewEvents = false;
@@ -2948,16 +3028,35 @@
             }
         });
 
-        // Initialize dark mode detection
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
+        // Initialize dark mode detection based on stored preference or system preference
+        function initializeDarkMode() {
+            const savedPreference = localStorage.getItem('kingPronosDarkMode');
+            
+            if (savedPreference === 'true') {
+                document.documentElement.classList.add('dark');
+            } else if (savedPreference === 'false') {
+                document.documentElement.classList.remove('dark');
+            } else {
+                // No saved preference, check system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
         }
 
+        // Initialize on page load
+        initializeDarkMode();
+
+        // Listen for system changes only when no user preference is saved
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
+            if (localStorage.getItem('kingPronosDarkMode') === null) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
             }
         });
 
@@ -2982,6 +3081,17 @@
                     }, 300);
                 }, 3000);
             }, 100);
+        }
+
+        // Info modal functions
+        function showInfoModal(title, content) {
+            document.getElementById('info-modal-title').textContent = title;
+            document.getElementById('info-modal-text').innerHTML = content;
+            document.getElementById('info-modal').classList.add('active');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.remove('active');
         }
 
         // Avatar functions
@@ -3140,25 +3250,16 @@
             } else if (savedPreference === 'false') {
                 document.documentElement.classList.remove('dark');
                 document.getElementById('dark-toggle').checked = false;
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('dark-toggle').checked = true;
             } else {
-                document.documentElement.classList.remove('dark');
-                document.getElementById('dark-toggle').checked = false;
-            }
-            
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-                if (localStorage.getItem('kingPronosDarkMode') === null) {
-                    if (event.matches) {
-                        document.documentElement.classList.add('dark');
-                        document.getElementById('dark-toggle').checked = true;
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        document.getElementById('dark-toggle').checked = false;
-                    }
+                // Use system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.getElementById('dark-toggle').checked = true;
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.getElementById('dark-toggle').checked = false;
                 }
-            });
+            }
         }
 
         // Function to get current date in YYYY-MM-DD format
@@ -3205,10 +3306,9 @@
             }
         }
 
-        // Function to process and categorize forecasts
+        // Function to process and categorize forecasts - updated for new JSON structure
         function processForecastData(data) {
             const processed = {
-                combines: [],
                 'ia-singles': [],
                 safes: [],
                 simple: []
@@ -3216,22 +3316,6 @@
 
             if (!data) {
                 return processed;
-            }
-
-            // Traiter les combinés depuis predictions_combinees_ia.details
-            if (data.predictions_combinees_ia && data.predictions_combinees_ia.details) {
-                data.predictions_combinees_ia.details.forEach(forecast => {
-                    processed.combines.push({
-                        id: forecast.id,
-                        name: forecast.name,
-                        description: forecast.description,
-                        matches: forecast.matches,
-                        confidence: forecast.combined_confidence,
-                        estimated_odds: forecast.estimated_odds,
-                        type: 'combined',
-                        size: forecast.size
-                    });
-                });
             }
 
             // Traiter les "Singles Premium" depuis ia_singles_premium.details
@@ -3280,7 +3364,7 @@
                 });
             }
 
-            // Traiter les pronostics simples
+            // Traiter les pronostics simples depuis predictions_simples.details
             if (data.predictions_simples && data.predictions_simples.details) {
                 data.predictions_simples.details.forEach(forecast => {
                     processed.simple.push({
@@ -3376,7 +3460,7 @@
         }
 
         // Function to create forecast card
-        function createForecastCard(forecastData, type) {
+        function createForecastCard(forecastData) {
             const card = document.createElement('div');
             card.className = 'forecast-card';
             card.addEventListener('click', () => openForecastDetail(forecastData));
@@ -3399,7 +3483,6 @@
                     if (matchDate && !isNaN(matchDate.getTime())) {
                         const today = new Date();
                         const diffTime = matchDate.getTime() - today.getTime();
-                        // Fix: Using Math.round instead of Math.ceil for better date calculation
                         const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
                         
                         if (diffDays === 0) {
@@ -3420,73 +3503,47 @@
                 formattedDate = 'Date inconnue';
             }
 
-            if (type === 'combines') {
-                // Combiné layout
-                card.innerHTML = `
-                    <div class="forecast-header">
-                        <div class="league-info">${forecastData.name || 'Combiné IA'}</div>
-                        <div class="forecast-status status-${statusClass}">${statusText}</div>
+            // Single match layout avec juste les équipes et un "-" au centre
+            card.innerHTML = `
+                <div class="forecast-header">
+                    <div class="league-info">${forecastData.league || 'Compétition'}</div>
+                    <div class="forecast-status status-${statusClass}">${statusText}</div>
+                </div>
+                
+                <div class="teams-container">
+                    <div class="team">
+                        <div class="team-logo-container"></div>
+                        <div class="team-name">${forecastData.HomeTeam || 'Équipe 1'}</div>
                     </div>
                     
-                    <div style="text-align: center; margin: 20px 0;">
-                        <div style="font-size: 24px; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;">
-                            ${forecastData.matches ? forecastData.matches.length : 0} Matchs
-                        </div>
-                        <div style="font-size: 14px; opacity: 0.8;">
-                            ${forecastData.description || 'Combiné intelligent basé sur l\'IA'}
-                        </div>
-                        ${forecastData.estimated_odds ? `
-                            <div style="background-color: var(--primary-color); color: white; padding: 8px 15px; border-radius: 15px; margin-top: 15px; display: inline-block;">
-                                Cote estimée: ${forecastData.estimated_odds}
-                            </div>
-                        ` : ''}
+                    <div class="forecast-vs">
+                        <div class="vs-text">-</div>
                     </div>
                     
-                    <div class="forecast-time">${formattedDate}</div>
-                `;
-            } else {
-                // Single match layout avec juste les équipes et un "-" au centre
-                card.innerHTML = `
-                    <div class="forecast-header">
-                        <div class="league-info">${forecastData.league || 'Compétition'}</div>
-                        <div class="forecast-status status-${statusClass}">${statusText}</div>
+                    <div class="team">
+                        <div class="team-logo-container-away"></div>
+                        <div class="team-name">${forecastData.AwayTeam || 'Équipe 2'}</div>
                     </div>
-                    
-                    <div class="teams-container">
-                        <div class="team">
-                            <div class="team-logo-container"></div>
-                            <div class="team-name">${forecastData.HomeTeam || 'Équipe 1'}</div>
-                        </div>
-                        
-                        <div class="forecast-vs">
-                            <div class="vs-text">-</div>
-                        </div>
-                        
-                        <div class="team">
-                            <div class="team-logo-container-away"></div>
-                            <div class="team-name">${forecastData.AwayTeam || 'Équipe 2'}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="forecast-time">${formattedDate}</div>
-                `;
+                </div>
+                
+                <div class="forecast-time">${formattedDate}</div>
+            `;
 
-                // Ajouter les logos après la création du HTML
-                setTimeout(() => {
-                    const homeLogoContainer = card.querySelector('.team-logo-container');
-                    const awayLogoContainer = card.querySelector('.team-logo-container-away');
-                    
-                    if (homeLogoContainer) {
-                        const homeLogo = createTeamLogoElement(forecastData.logo_home, forecastData.HomeTeam);
-                        homeLogoContainer.replaceWith(homeLogo);
-                    }
-                    
-                    if (awayLogoContainer) {
-                        const awayLogo = createTeamLogoElement(forecastData.logo_away, forecastData.AwayTeam);
-                        awayLogoContainer.replaceWith(awayLogo);
-                    }
-                }, 0);
-            }
+            // Ajouter les logos après la création du HTML
+            setTimeout(() => {
+                const homeLogoContainer = card.querySelector('.team-logo-container');
+                const awayLogoContainer = card.querySelector('.team-logo-container-away');
+                
+                if (homeLogoContainer) {
+                    const homeLogo = createTeamLogoElement(forecastData.logo_home, forecastData.HomeTeam);
+                    homeLogoContainer.replaceWith(homeLogo);
+                }
+                
+                if (awayLogoContainer) {
+                    const awayLogo = createTeamLogoElement(forecastData.logo_away, forecastData.AwayTeam);
+                    awayLogoContainer.replaceWith(awayLogo);
+                }
+            }, 0);
 
             return card;
         }
@@ -3498,60 +3555,49 @@
             // Update detail view
             document.getElementById('detail-league').textContent = forecastData.league || 'Compétition';
             
-            if (forecastData.type === 'combined') {
-                document.getElementById('detail-home-team').textContent = 'Combiné';
-                document.getElementById('detail-away-team').textContent = 'IA';
-                // Hide prediction value for combined forecasts
-                document.getElementById('detail-prediction').style.display = 'none';
-                
-                // Utiliser des icônes par défaut pour les combinés
-                document.getElementById('detail-home-logo').innerHTML = '<i class="fas fa-futbol"></i>';
-                document.getElementById('detail-away-logo').innerHTML = '<i class="fas fa-brain"></i>';
-            } else {
-                document.getElementById('detail-home-team').textContent = forecastData.HomeTeam || 'Équipe 1';
-                document.getElementById('detail-away-team').textContent = forecastData.AwayTeam || 'Équipe 2';
-                // Hide prediction value for all forecasts as requested
-                document.getElementById('detail-prediction').style.display = 'none';
-                
-                // Mettre à jour les logos dans la vue détaillée
-                const detailHomeLogo = document.getElementById('detail-home-logo');
-                const detailAwayLogo = document.getElementById('detail-away-logo');
-                
-                // Logo équipe domicile
-                detailHomeLogo.innerHTML = '';
-                if (forecastData.logo_home) {
-                    const homeImg = document.createElement('img');
-                    homeImg.src = forecastData.logo_home;
-                    homeImg.alt = forecastData.HomeTeam || 'Home Team';
-                    homeImg.style.width = '100%';
-                    homeImg.style.height = '100%';
-                    homeImg.style.objectFit = 'cover';
-                    homeImg.style.borderRadius = '50%';
-                    homeImg.onerror = function() {
-                        detailHomeLogo.innerHTML = `<i class="${getTeamIcon(forecastData.HomeTeam)}"></i>`;
-                    };
-                    detailHomeLogo.appendChild(homeImg);
-                } else {
+            document.getElementById('detail-home-team').textContent = forecastData.HomeTeam || 'Équipe 1';
+            document.getElementById('detail-away-team').textContent = forecastData.AwayTeam || 'Équipe 2';
+            // Hide prediction value for all forecasts as requested
+            document.getElementById('detail-prediction').style.display = 'none';
+            
+            // Mettre à jour les logos dans la vue détaillée
+            const detailHomeLogo = document.getElementById('detail-home-logo');
+            const detailAwayLogo = document.getElementById('detail-away-logo');
+            
+            // Logo équipe domicile
+            detailHomeLogo.innerHTML = '';
+            if (forecastData.logo_home) {
+                const homeImg = document.createElement('img');
+                homeImg.src = forecastData.logo_home;
+                homeImg.alt = forecastData.HomeTeam || 'Home Team';
+                homeImg.style.width = '100%';
+                homeImg.style.height = '100%';
+                homeImg.style.objectFit = 'cover';
+                homeImg.style.borderRadius = '50%';
+                homeImg.onerror = function() {
                     detailHomeLogo.innerHTML = `<i class="${getTeamIcon(forecastData.HomeTeam)}"></i>`;
-                }
-                
-                // Logo équipe extérieur
-                detailAwayLogo.innerHTML = '';
-                if (forecastData.logo_away) {
-                    const awayImg = document.createElement('img');
-                    awayImg.src = forecastData.logo_away;
-                    awayImg.alt = forecastData.AwayTeam || 'Away Team';
-                    awayImg.style.width = '100%';
-                    awayImg.style.height = '100%';
-                    awayImg.style.objectFit = 'cover';
-                    awayImg.style.borderRadius = '50%';
-                    awayImg.onerror = function() {
-                        detailAwayLogo.innerHTML = `<i class="${getTeamIcon(forecastData.AwayTeam)}"></i>`;
-                    };
-                    detailAwayLogo.appendChild(awayImg);
-                } else {
+                };
+                detailHomeLogo.appendChild(homeImg);
+            } else {
+                detailHomeLogo.innerHTML = `<i class="${getTeamIcon(forecastData.HomeTeam)}"></i>`;
+            }
+            
+            // Logo équipe extérieur
+            detailAwayLogo.innerHTML = '';
+            if (forecastData.logo_away) {
+                const awayImg = document.createElement('img');
+                awayImg.src = forecastData.logo_away;
+                awayImg.alt = forecastData.AwayTeam || 'Away Team';
+                awayImg.style.width = '100%';
+                awayImg.style.height = '100%';
+                awayImg.style.objectFit = 'cover';
+                awayImg.style.borderRadius = '50%';
+                awayImg.onerror = function() {
                     detailAwayLogo.innerHTML = `<i class="${getTeamIcon(forecastData.AwayTeam)}"></i>`;
-                }
+                };
+                detailAwayLogo.appendChild(awayImg);
+            } else {
+                detailAwayLogo.innerHTML = `<i class="${getTeamIcon(forecastData.AwayTeam)}"></i>`;
             }
             
             let statusClass = 'pending';
@@ -3589,21 +3635,12 @@
             document.getElementById('detail-time').textContent = formattedDateTime;
 
             // Update analysis content avec prédiction colorée
-            if (forecastData.type === 'combined') {
-                document.getElementById('prediction-analysis').innerHTML = `
-                    <strong>Combiné recommandé:</strong> <span class="prediction-highlight">${forecastData.name || 'Combiné'}</span><br><br>
-                    ${forecastData.description || 'Ce combiné a été généré par notre IA en analysant les meilleures opportunités du jour.'}<br><br>
-                    <strong>Nombre de matchs:</strong> ${forecastData.matches ? forecastData.matches.length : 0}<br>
-                    ${forecastData.estimated_odds ? `<strong>Cote estimée:</strong> ${forecastData.estimated_odds}` : ''}
-                `;
-            } else {
-                document.getElementById('prediction-analysis').innerHTML = `
-                    <strong>Prédiction recommandée:</strong> <span class="prediction-highlight">${forecastData.prediction || 'N/A'}</span><br><br>
-                    Cette prédiction est basée sur l'analyse des performances récentes, des statistiques historiques 
-                    et des facteurs contextuels des équipes ${forecastData.HomeTeam || 'Équipe 1'} et ${forecastData.AwayTeam || 'Équipe 2'}.
-                    ${forecastData.score_prediction ? `<br><br><strong>Score prédit:</strong> ${forecastData.score_prediction}` : ''}
-                `;
-            }
+            document.getElementById('prediction-analysis').innerHTML = `
+                <strong>Prédiction recommandée:</strong> <span class="prediction-highlight">${forecastData.prediction || 'N/A'}</span><br><br>
+                Cette prédiction est basée sur l'analyse des performances récentes, des statistiques historiques 
+                et des facteurs contextuels des équipes ${forecastData.HomeTeam || 'Équipe 1'} et ${forecastData.AwayTeam || 'Équipe 2'}.
+                ${forecastData.score_prediction ? `<br><br><strong>Score prédit:</strong> ${forecastData.score_prediction}` : ''}
+            `;
 
             // Update confidence - remplacé par le style confidence-info
             const confidence = forecastData.confidence || 0;
@@ -3611,16 +3648,8 @@
 
             // Update AI analysis
             const aiAnalysisContent = document.getElementById('ai-analysis-content');
-            if (forecastData.analyse_ia && forecastData.type !== 'combined') {
-                aiAnalysisContent.textContent = forecastData.analyse_ia;
-            } else if (forecastData.type === 'combined') {
-                aiAnalysisContent.innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; color: var(--inactive-text);">
-                        <i class="fas fa-brain" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <h3 style="margin-bottom: 10px;">Analyse non disponible</h3>
-                        <p>L'analyse IA détaillée n'est pas disponible pour les combinés</p>
-                    </div>
-                `;
+            if (forecastData.analyse_ia) {
+                aiAnalysisContent.innerHTML = forecastData.analyse_ia;
             } else {
                 aiAnalysisContent.innerHTML = `
                     <div style="text-align: center; padding: 40px 20px; color: var(--inactive-text);">
@@ -3631,16 +3660,8 @@
                 `;
             }
 
-            // Update probabilities if available for combined forecasts
-            if (forecastData.type === 'combined') {
-                document.getElementById('prob-content').innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; color: var(--inactive-text);">
-                        <i class="fas fa-info-circle" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <h3 style="margin-bottom: 10px;">Probabilités non disponibles</h3>
-                        <p>Cette section n'est pas disponible pour les combinés IA</p>
-                    </div>
-                `;
-            } else if (forecastData.poisson_probabilities) {
+            // Update probabilities
+            if (forecastData.poisson_probabilities) {
                 document.getElementById('prob-content').innerHTML = `
                     <div class="probability-item">
                         <div class="probability-label">Victoire ${forecastData.HomeTeam || 'Domicile'}</div>
@@ -3673,16 +3694,8 @@
                 `;
             }
 
-            // Update scores if available for combined forecasts
-            if (forecastData.type === 'combined') {
-                document.getElementById('scores-content').innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; color: var(--inactive-text);">
-                        <i class="fas fa-ban" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                        <h3 style="margin-bottom: 10px;">Scores non disponibles</h3>
-                        <p>Cette section n'est pas disponible pour les combinés IA</p>
-                    </div>
-                `;
-            } else if (forecastData.poisson_top_scores && forecastData.poisson_top_scores.length > 0) {
+            // Update scores
+            if (forecastData.poisson_top_scores && forecastData.poisson_top_scores.length > 0) {
                 const scoresHtml = forecastData.poisson_top_scores.map(scoreData => {
                     // Extraire seulement le score (ex: "1-3" de "Albirex Niigata 1-3 Machida Zelvia")
                     const scoreMatch = scoreData.score.match(/(\d+)-(\d+)/);
@@ -3826,7 +3839,7 @@
             const fragment = document.createDocumentFragment();
             
             forecasts.forEach((forecastData) => {
-                const forecastElement = createForecastCard(forecastData, tabType);
+                const forecastElement = createForecastCard(forecastData);
                 fragment.appendChild(forecastElement);
             });
             
@@ -4184,10 +4197,9 @@
             });
             section.appendChild(dateHeader);
 
-            // Display each category
+            // Display each category - removed "combines"
             const categories = [
                 { key: 'simple', title: 'Pronostics Simples' },
-                { key: 'combines', title: 'Combinés IA' },
                 { key: 'ia-singles', title: 'Singles Premium' },
                 { key: 'safes', title: 'Pronostics Safes' }
             ];
@@ -4206,7 +4218,7 @@
                     forecastsList.className = 'history-forecasts-list';
 
                     data[category.key].forEach(forecast => {
-                        const historyItem = createHistoryForecastElement(forecast, category.key);
+                        const historyItem = createHistoryForecastElement(forecast);
                         forecastsList.appendChild(historyItem);
                     });
 
@@ -4218,34 +4230,19 @@
             return section;
         }
 
-        function createHistoryForecastElement(forecastData, type) {
+        function createHistoryForecastElement(forecastData) {
             const element = document.createElement('div');
             element.className = 'history-forecast-item';
 
-            let content = '';
-            
-            if (type === 'combines') {
-                content = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <div style="font-weight: bold;">${forecastData.name || 'Combiné'}</div>
-                        <div class="forecast-status pending">À venir</div>
-                    </div>
-                    <div style="font-size: 12px; opacity: 0.8;">
-                        ${forecastData.matches ? forecastData.matches.length : 0} matchs
-                    </div>
-                    ${forecastData.estimated_odds ? `<div style="font-size: 12px; margin-top: 4px;">Cote estimée: ${forecastData.estimated_odds}</div>` : ''}
-                `;
-            } else {
-                content = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <div style="font-weight: bold;">${forecastData.HomeTeam || 'Équipe 1'} vs ${forecastData.AwayTeam || 'Équipe 2'}</div>
-                        <div class="forecast-status pending">À venir</div>
-                    </div>
-                    <div style="font-size: 11px; margin-top: 4px; opacity: 0.6;">
-                        ${forecastData.league || 'Compétition'} • ${forecastData.country || 'Pays'}
-                    </div>
-                `;
-            }
+            const content = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="font-weight: bold;">${forecastData.HomeTeam || 'Équipe 1'} vs ${forecastData.AwayTeam || 'Équipe 2'}</div>
+                    <div class="forecast-status pending">À venir</div>
+                </div>
+                <div style="font-size: 11px; margin-top: 4px; opacity: 0.6;">
+                    ${forecastData.league || 'Compétition'} • ${forecastData.country || 'Pays'}
+                </div>
+            `;
 
             element.innerHTML = content;
             return element;
@@ -4604,6 +4601,70 @@
                 showSection('interface');
             });
 
+            document.getElementById('menu-terms').addEventListener('click', function() {
+                document.getElementById('side-menu').classList.remove('active');
+                document.getElementById('side-menu-overlay').classList.remove('active');
+                
+                const termsContent = `
+                    <h3>Conditions d'utilisation</h3>
+                    <p>En utilisant KING PRONOS, vous acceptez les conditions suivantes :</p>
+                    
+                    <h3>Utilisation des services</h3>
+                    <p>• Les pronostics fournis sont à des fins de divertissement uniquement<br>
+                    • Nous ne garantissons aucun résultat financier<br>
+                    • L'utilisateur est seul responsable de ses décisions de paris<br>
+                    • Il est interdit de partager votre compte avec des tiers</p>
+                    
+                    <h3>Responsabilités</h3>
+                    <p>• KING PRONOS décline toute responsabilité en cas de pertes financières<br>
+                    • Les utilisateurs doivent parier de manière responsable<br>
+                    • Les mineurs ne sont pas autorisés à utiliser nos services</p>
+                    
+                    <h3>Propriété intellectuelle</h3>
+                    <p>• Tous les contenus sont protégés par des droits d'auteur<br>
+                    • La reproduction non autorisée est interdite</p>
+                    
+                    <h3>Modification des conditions</h3>
+                    <p>Nous nous réservons le droit de modifier ces conditions à tout moment. Les utilisateurs seront informés des changements majeurs.</p>
+                `;
+                
+                showInfoModal('Conditions d\'utilisation', termsContent);
+            });
+
+            document.getElementById('menu-about').addEventListener('click', function() {
+                document.getElementById('side-menu').classList.remove('active');
+                document.getElementById('side-menu-overlay').classList.remove('active');
+                
+                const aboutContent = `
+                    <h3>À propos de KING PRONOS</h3>
+                    <p>KING PRONOS est une application avancée de pronostics sportifs utilisant l'intelligence artificielle pour fournir des prédictions de haute qualité.</p>
+                    
+                    <h3>Notre mission</h3>
+                    <p>Fournir aux passionnés de sport des analyses approfondies et des pronostics fiables basés sur des données statistiques avancées et des algorithmes d'IA.</p>
+                    
+                    <h3>Fonctionnalités</h3>
+                    <p>• Pronostics simples quotidiens<br>
+                    • Singles Premium avec analyse IA<br>
+                    • Pronostics Safes à faible risque<br>
+                    • Analyses détaillées avec probabilités<br>
+                    • Interface moderne et intuitive</p>
+                    
+                    <h3>Technologie</h3>
+                    <p>Notre plateforme utilise des modèles de Poisson, des analyses statistiques avancées et des algorithmes d'apprentissage automatique pour générer nos prédictions.</p>
+                    
+                    <h3>Contact</h3>
+                    <p>Rejoignez notre communauté sur WhatsApp, Telegram ou YouTube pour plus d'informations et de support.</p>
+                    
+                    <h3>Version</h3>
+                    <p>Application v3.7 - Dernière mise à jour : Janvier 2025</p>
+                `;
+                
+                showInfoModal('À propos', aboutContent);
+            });
+
+            // Info modal
+            document.getElementById('info-modal-close').addEventListener('click', closeInfoModal);
+
             // Back button
             document.getElementById('back-btn').addEventListener('click', function() {
                 showSection('forecasts');
@@ -4617,7 +4678,7 @@
                 });
             });
 
-            // AI forecast tabs
+            // AI forecast tabs - updated for new tabs
             document.querySelectorAll('.ai-forecast-tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
@@ -4735,7 +4796,7 @@
           console.log('Service Worker enregistré avec succès :', registration.scope);
         })
         .catch(error => {
-          console.log('Échec de l’enregistrement du Service Worker :', error);
+          console.log('Échec de l'enregistrement du Service Worker :', error);
         });
     });
   }
