@@ -114,6 +114,16 @@
             --card-accent: var(--primary-color);
             --prediction-highlight-bg: rgba(93, 92, 222, 0.1);
             --prediction-highlight-text: var(--primary-color);
+            --install-banner-bg: linear-gradient(135deg, var(--primary-color), #4a49c0);
+            --install-banner-text: white;
+            --install-banner-shadow: rgba(93, 92, 222, 0.3);
+            --promo-bg: linear-gradient(135deg, #FFD700, #FFA000);
+            --promo-text: #000000;
+            --promo-shadow: rgba(255, 215, 0, 0.3);
+            --secret-bg: linear-gradient(135deg, #4CAF50, #2E7D32);
+            --secret-text: white;
+            --ad-bg: rgba(255, 255, 255, 0.95);
+            --ad-border: var(--border-color);
         }
         
         /* Thème vert */
@@ -135,6 +145,8 @@
             --card-accent: #4CAF50;
             --prediction-highlight-bg: rgba(76, 175, 80, 0.1);
             --prediction-highlight-text: #4CAF50;
+            --install-banner-bg: linear-gradient(135deg, #4CAF50, #388E3C);
+            --install-banner-shadow: rgba(76, 175, 80, 0.3);
         }
         
         /* Thème rouge */
@@ -156,6 +168,8 @@
             --card-accent: #F44336;
             --prediction-highlight-bg: rgba(244, 67, 54, 0.1);
             --prediction-highlight-text: #F44336;
+            --install-banner-bg: linear-gradient(135deg, #F44336, #d32f2f);
+            --install-banner-shadow: rgba(244, 67, 54, 0.3);
         }
         
         /* Thème orange */
@@ -177,6 +191,8 @@
             --card-accent: #FF9800;
             --prediction-highlight-bg: rgba(255, 152, 0, 0.1);
             --prediction-highlight-text: #FF9800;
+            --install-banner-bg: linear-gradient(135deg, #FF9800, #f57c00);
+            --install-banner-shadow: rgba(255, 152, 0, 0.3);
         }
 
         .theme-purple {
@@ -184,6 +200,8 @@
             --card-accent: #9C27B0;
             --prediction-highlight-bg: rgba(156, 39, 176, 0.1);
             --prediction-highlight-text: #9C27B0;
+            --install-banner-bg: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            --install-banner-shadow: rgba(156, 39, 176, 0.3);
         }
 
         .theme-teal {
@@ -191,6 +209,8 @@
             --card-accent: #009688;
             --prediction-highlight-bg: rgba(0, 150, 136, 0.1);
             --prediction-highlight-text: #009688;
+            --install-banner-bg: linear-gradient(135deg, #009688, #00695C);
+            --install-banner-shadow: rgba(0, 150, 136, 0.3);
         }
 
         .theme-indigo {
@@ -198,6 +218,8 @@
             --card-accent: #3F51B5;
             --prediction-highlight-bg: rgba(63, 81, 181, 0.1);
             --prediction-highlight-text: #3F51B5;
+            --install-banner-bg: linear-gradient(135deg, #3F51B5, #303F9F);
+            --install-banner-shadow: rgba(63, 81, 181, 0.3);
         }
 
         .theme-pink {
@@ -205,6 +227,8 @@
             --card-accent: #E91E63;
             --prediction-highlight-bg: rgba(233, 30, 99, 0.1);
             --prediction-highlight-text: #E91E63;
+            --install-banner-bg: linear-gradient(135deg, #E91E63, #C2185B);
+            --install-banner-shadow: rgba(233, 30, 99, 0.3);
         }
 
         .theme-cyan {
@@ -212,6 +236,8 @@
             --card-accent: #00BCD4;
             --prediction-highlight-bg: rgba(0, 188, 212, 0.1);
             --prediction-highlight-text: #00BCD4;
+            --install-banner-bg: linear-gradient(135deg, #00BCD4, #0097A7);
+            --install-banner-shadow: rgba(0, 188, 212, 0.3);
         }
 
         .theme-lime {
@@ -219,6 +245,8 @@
             --card-accent: #CDDC39;
             --prediction-highlight-bg: rgba(205, 220, 57, 0.1);
             --prediction-highlight-text: #CDDC39;
+            --install-banner-bg: linear-gradient(135deg, #CDDC39, #AFB42B);
+            --install-banner-shadow: rgba(205, 220, 57, 0.3);
         }
 
         .theme-amber {
@@ -226,6 +254,8 @@
             --card-accent: #FFC107;
             --prediction-highlight-bg: rgba(255, 193, 7, 0.1);
             --prediction-highlight-text: #FFC107;
+            --install-banner-bg: linear-gradient(135deg, #FFC107, #FF8F00);
+            --install-banner-shadow: rgba(255, 193, 7, 0.3);
         }
 
         .theme-deep-orange {
@@ -233,6 +263,8 @@
             --card-accent: #FF5722;
             --prediction-highlight-bg: rgba(255, 87, 34, 0.1);
             --prediction-highlight-text: #FF5722;
+            --install-banner-bg: linear-gradient(135deg, #FF5722, #D84315);
+            --install-banner-shadow: rgba(255, 87, 34, 0.3);
         }
         
         .dark {
@@ -305,6 +337,7 @@
             --plan-active-bg: rgba(93, 92, 222, 0.15);
             --history-date-bg: rgba(93, 92, 222, 0.15);
             --prediction-highlight-bg: rgba(93, 92, 222, 0.2);
+            --ad-bg: rgba(44, 44, 44, 0.95);
         }
 
         * {
@@ -340,6 +373,229 @@
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
+        }
+
+        /* Ad Banner Styles */
+        .ad-banner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--ad-bg);
+            border: 2px solid var(--ad-border);
+            border-radius: 20px;
+            padding: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            z-index: 300;
+            backdrop-filter: blur(10px);
+            max-width: 250px;
+            width: 90%;
+        }
+
+        .ad-banner.show {
+            display: flex;
+            animation: adSlideIn 0.5s ease;
+        }
+
+        @keyframes adSlideIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ad-banner-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.7;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-banner-close:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .ad-content {
+            text-align: center;
+        }
+
+        .ad-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .ad-iframe-container {
+            margin: 10px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ad-promo-code {
+            background: var(--promo-bg);
+            color: var(--promo-text);
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 10px;
+            display: inline-block;
+            box-shadow: 0 2px 10px var(--promo-shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ad-promo-code:hover {
+            transform: scale(1.05);
+        }
+
+        .ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 299;
+            display: none;
+        }
+
+        .ad-overlay.show {
+            display: block;
+        }
+
+        /* Install Banner */
+        .install-banner {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            right: 20px;
+            background: var(--install-banner-bg);
+            color: var(--install-banner-text);
+            border-radius: 15px;
+            padding: 15px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px var(--install-banner-shadow);
+            z-index: 200;
+            animation: slideDown 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .install-banner.show {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .install-banner-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .install-banner-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            opacity: 0.9;
+        }
+
+        .install-banner-text {
+            flex: 1;
+        }
+
+        .install-banner-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .install-banner-subtitle {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .install-banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .install-banner-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--install-banner-text);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .install-banner-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .install-banner-btn.primary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+        }
+
+        .install-banner-btn.primary:hover {
+            background: white;
+        }
+
+        .install-banner-close {
+            background: none;
+            border: none;
+            color: var(--install-banner-text);
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .install-banner-close:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Header */
@@ -442,6 +698,10 @@
             background-color: var(--bg-color);
         }
 
+        .main-content.with-banner {
+            top: 150px;
+        }
+
         /* Sections - Fixed for scrolling */
         .section {
             display: none;
@@ -452,6 +712,167 @@
         .section.active {
             display: flex;
             flex-direction: column;
+        }
+
+        /* Secrets Section Styles */
+        .secrets-container {
+            padding: 20px;
+            overflow-y: auto;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .secret-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: var(--secret-bg);
+            border-radius: 20px;
+            color: var(--secret-text);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .secret-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .secret-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .promo-code-section {
+            background: var(--promo-bg);
+            color: var(--promo-text);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px var(--promo-shadow);
+            border: 3px solid #FFB300;
+        }
+
+        .promo-code-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .promo-code-value {
+            font-size: 32px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            letter-spacing: 3px;
+            border: 2px dashed #FFB300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .promo-code-value:hover {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .promo-code-copy {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .benefit-description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), #4a49c0);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cta-description {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         /* Forecast Cards Container - Fixed for scrolling */
@@ -1023,6 +1444,11 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .side-menu-item:hover {
+            background-color: var(--side-menu-hover);
         }
         
         .side-menu-item.active {
@@ -1042,6 +1468,8 @@
         
         .side-menu-footer {
             margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
         }
         
         .side-menu-overlay {
@@ -2322,6 +2750,35 @@
                 padding: 0 15px;
             }
 
+            .install-banner {
+                top: 65px;
+                left: 15px;
+                right: 15px;
+                padding: 12px 15px;
+            }
+
+            .install-banner-icon {
+                font-size: 20px;
+                margin-right: 12px;
+            }
+
+            .install-banner-title {
+                font-size: 14px;
+            }
+
+            .install-banner-subtitle {
+                font-size: 12px;
+            }
+
+            .install-banner-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .main-content.with-banner {
+                top: 135px;
+            }
+
             .teams-container {
                 margin-bottom: 10px;
                 gap: 8px;
@@ -2387,6 +2844,19 @@
             .info-modal-content {
                 padding: 20px;
             }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .secret-title {
+                font-size: 24px;
+            }
+
+            .promo-code-value {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
         }
     </style>
 </head>
@@ -2396,6 +2866,39 @@
         <i class="fas fa-futbol loading-spinner-main"></i>
         <div style="font-weight: bold; font-size: 24px; color: var(--primary-color);">KING PRONOS</div>
         <div style="margin-top: 10px; color: #6b7280;">Chargement...</div>
+    </div>
+
+    <!-- Ad Banner -->
+    <div id="ad-banner" class="ad-banner">
+        <button class="ad-banner-close" id="ad-banner-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="ad-content">
+            <div class="ad-title">🎰 Promo Spéciale 1XBET</div>
+            <div class="ad-iframe-container">
+                <iframe scrolling='no' frameBorder='0' style='padding:0px; margin:0px; border:0px;border-style:none;border-style:none;' width='192' height='192' src="https://refbanners.com/I?tag=d_4544971m_15811c_&site=4544971&ad=15811"></iframe>
+            </div>
+            <div class="ad-promo-code" id="ad-promo-code">Code: 1x_3154789</div>
+        </div>
+    </div>
+    <div id="ad-overlay" class="ad-overlay"></div>
+
+    <!-- Install Banner -->
+    <div id="install-banner" class="install-banner">
+        <div class="install-banner-content">
+            <i class="fas fa-download install-banner-icon"></i>
+            <div class="install-banner-text">
+                <div class="install-banner-title">Installer KING PRONOS</div>
+                <div class="install-banner-subtitle">Accédez rapidement à vos pronostics</div>
+            </div>
+        </div>
+        <div class="install-banner-actions">
+            <button class="install-banner-btn primary" id="install-app-btn">Installer</button>
+            <button class="install-banner-btn" id="install-later-btn">Plus tard</button>
+            <button class="install-banner-close" id="install-close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Auth Screen -->
@@ -2481,6 +2984,14 @@
             <div class="side-menu-title">KING PRONOS</div>
         </div>
         <div class="side-menu-content">
+            <div class="side-menu-item" id="menu-install">
+                <i class="fas fa-download"></i>
+                <div class="side-menu-text">Installer l'app</div>
+            </div>
+            <div class="side-menu-item" id="menu-secrets">
+                <i class="fas fa-lock"></i>
+                <div class="side-menu-text">Secrets</div>
+            </div>
             <div class="side-menu-item" id="menu-history">
                 <i class="fas fa-history"></i>
                 <div class="side-menu-text">Historique</div>
@@ -2603,6 +3114,110 @@
 
             <div class="ai-forecasts-content" id="safes-content">
                 <div class="forecasts-container" id="safes-list">
+                </div>
+            </div>
+        </div>
+
+        <!-- Secrets Section -->
+        <div id="secrets-section" class="section">
+            <div class="secrets-container">
+                <div class="secret-header">
+                    <div class="secret-title">
+                        <i class="fas fa-crown"></i>
+                        SECRETS EXCLUSIFS
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="secret-subtitle">
+                        Découvrez les avantages secrets de 1XBET avec notre code promo exclusif !
+                    </div>
+                </div>
+
+                <div class="promo-code-section">
+                    <div class="promo-code-title">🎯 Code Promo Exclusif</div>
+                    <div class="promo-code-value" id="promo-code-display">1x_3154789</div>
+                    <div class="promo-code-copy">👆 Cliquez pour copier le code</div>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="benefit-title">Cotes Augmentées</div>
+                        <div class="benefit-description">
+                            Bénéficiez de cotes majorées jusqu'à +15% sur vos paris avec notre code exclusif
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="benefit-title">Retraits Ultra-Rapides</div>
+                        <div class="benefit-description">
+                            Retraits instantanés en moins de 15 minutes, 24h/24 et 7j/7
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="benefit-title">Bonus de Bienvenue</div>
+                        <div class="benefit-description">
+                            Jusqu'à 200€ de bonus sur votre premier dépôt + paris gratuits
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="benefit-title">Assurance Paris</div>
+                        <div class="benefit-description">
+                            Protection sur vos premiers paris perdants avec remboursement garanti
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="benefit-title">Statut VIP</div>
+                        <div class="benefit-description">
+                            Accès prioritaire au service client VIP et promotions exclusives
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="benefit-title">Cashback Hebdomadaire</div>
+                        <div class="benefit-description">
+                            Récupérez jusqu'à 10% de vos pertes chaque semaine automatiquement
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <div class="cta-title">🎰 Prêt à Doubler Vos Gains ?</div>
+                    <div class="cta-description">
+                        Rejoignez plus de 400 000 parieurs qui utilisent déjà 1XBET pour maximiser leurs profits. 
+                        Inscription en 2 minutes, premier bonus immédiat !
+                    </div>
+                    <a href="https://1xbet.com" target="_blank" class="cta-button">
+                        🚀 S'INSCRIRE MAINTENANT
+                    </a>
+                </div>
+
+                <div style="background: var(--secondary-color); padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px;">
+                    <div style="font-size: 14px; color: var(--inactive-text); margin-bottom: 10px;">
+                        💡 <strong>Conseil Pro :</strong> Utilisez ce code lors de votre inscription pour débloquer tous les avantages secrets
+                    </div>
+                    <div style="font-size: 12px; color: var(--inactive-text);">
+                        ⚠️ Offre limitée dans le temps • Réservée aux nouveaux membres
+                    </div>
                 </div>
             </div>
         </div>
@@ -2934,6 +3549,78 @@
     <div id="overlay" class="overlay"></div>
     <div class="notification" id="notification"></div>
 
+    <!-- Service Worker Script -->
+    <script>
+        // Service Worker
+        const SW_VERSION = '3.7.0';
+        const CACHE_NAME = `kingpronos-v${SW_VERSION}`;
+        const urlsToCache = [
+            '/',
+            '/manifest.json',
+            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css',
+            'https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js',
+            'https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js',
+            'https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js'
+        ];
+
+        // Enregistrer le service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = '${CACHE_NAME}';
+                    const urlsToCache = ${JSON.stringify(urlsToCache)};
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                }
+                            )
+                        );
+                    });
+
+                    self.addEventListener('activate', (event) => {
+                        event.waitUntil(
+                            caches.keys().then((cacheNames) => {
+                                return Promise.all(
+                                    cacheNames.map((cacheName) => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('Service Worker enregistré avec succès :', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Échec de l\'enregistrement du Service Worker :', error);
+                    });
+            });
+        }
+    </script>
+
     <script type="module">
         // Import Firebase modules (keeping all a1 logic)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
@@ -2986,6 +3673,14 @@
         let selectedAvatar = null;
         let tempSelectedAvatar = null;
 
+        // PWA Installation variables
+        let deferredInstallPrompt = null;
+        let isAppInstalled = false;
+
+        // Ad system variables
+        let adTimer = null;
+        let lastAdShown = localStorage.getItem('kingPronosLastAdShown') ? parseInt(localStorage.getItem('kingPronosLastAdShown')) : 0;
+
         // Protection contre la copie
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -3027,6 +3722,195 @@
                 return false;
             }
         });
+
+        // Ad system functions
+        function initializeAdSystem() {
+            // Show ad every 3-5 minutes randomly
+            const adInterval = Math.random() * (5 - 3) + 3; // 3 to 5 minutes
+            
+            adTimer = setInterval(() => {
+                const now = Date.now();
+                // Don't show if ad was shown in the last 2 minutes
+                if (now - lastAdShown > 2 * 60 * 1000) {
+                    showAd();
+                }
+            }, adInterval * 60 * 1000);
+        }
+
+        function showAd() {
+            const adBanner = document.getElementById('ad-banner');
+            const adOverlay = document.getElementById('ad-overlay');
+            
+            adBanner.classList.add('show');
+            adOverlay.classList.add('show');
+            
+            lastAdShown = Date.now();
+            localStorage.setItem('kingPronosLastAdShown', lastAdShown.toString());
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                hideAd();
+            }, 8000);
+        }
+
+        function hideAd() {
+            const adBanner = document.getElementById('ad-banner');
+            const adOverlay = document.getElementById('ad-overlay');
+            
+            adBanner.classList.remove('show');
+            adOverlay.classList.remove('show');
+        }
+
+        function copyPromoCode(code) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showNotification(`Code ${code} copié !`, 'success');
+                }).catch(() => {
+                    // Fallback for older browsers
+                    fallbackCopyTextToClipboard(code);
+                });
+            } else {
+                fallbackCopyTextToClipboard(code);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification(`Code ${text} copié !`, 'success');
+            } catch (err) {
+                showNotification('Impossible de copier le code', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // PWA Installation functions
+        function initializePWA() {
+            // Check if app is already installed
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                isAppInstalled = true;
+                return;
+            }
+
+            // Check if it's running in an installed PWA on iOS
+            if (window.navigator.standalone === true) {
+                isAppInstalled = true;
+                return;
+            }
+
+            // Listen for beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (event) => {
+                event.preventDefault();
+                deferredInstallPrompt = event;
+                
+                // Check if user has previously dismissed the banner
+                const bannerDismissed = localStorage.getItem('kingPronosInstallBannerDismissed');
+                if (!bannerDismissed && !isAppInstalled) {
+                    showInstallBanner();
+                }
+            });
+
+            // Listen for app installed
+            window.addEventListener('appinstalled', () => {
+                console.log('PWA was installed');
+                isAppInstalled = true;
+                hideInstallBanner();
+                deferredInstallPrompt = null;
+                showNotification('Application installée avec succès !', 'success');
+            });
+
+            // Check if install is possible on iOS
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+            
+            if (isIOS && !isInStandaloneMode) {
+                const bannerDismissed = localStorage.getItem('kingPronosInstallBannerDismissed');
+                if (!bannerDismissed) {
+                    showIOSInstallBanner();
+                }
+            }
+        }
+
+        function showInstallBanner() {
+            const banner = document.getElementById('install-banner');
+            const mainContent = document.getElementById('main-content');
+            
+            banner.classList.add('show');
+            mainContent.classList.add('with-banner');
+        }
+
+        function hideInstallBanner() {
+            const banner = document.getElementById('install-banner');
+            const mainContent = document.getElementById('main-content');
+            
+            banner.classList.remove('show');
+            mainContent.classList.remove('with-banner');
+        }
+
+        function showIOSInstallBanner() {
+            const banner = document.getElementById('install-banner');
+            const mainContent = document.getElementById('main-content');
+            const title = banner.querySelector('.install-banner-title');
+            const subtitle = banner.querySelector('.install-banner-subtitle');
+            const installBtn = document.getElementById('install-app-btn');
+            
+            title.textContent = 'Installer KING PRONOS';
+            subtitle.textContent = 'Appuyez sur "Partager" puis "Sur l\'écran d\'accueil"';
+            installBtn.textContent = 'Compris';
+            
+            banner.classList.add('show');
+            mainContent.classList.add('with-banner');
+        }
+
+        async function installApp() {
+            if (!deferredInstallPrompt) {
+                // For iOS or when prompt is not available
+                showNotification('Suivez les instructions de votre navigateur pour installer l\'app', 'info');
+                hideInstallBanner();
+                return;
+            }
+
+            try {
+                const result = await deferredInstallPrompt.prompt();
+                console.log('User response to install prompt:', result);
+                
+                if (result.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                
+                deferredInstallPrompt = null;
+                hideInstallBanner();
+                
+            } catch (error) {
+                console.error('Error during installation:', error);
+                showNotification('Erreur lors de l\'installation', 'error');
+            }
+        }
+
+        function dismissInstallBanner() {
+            hideInstallBanner();
+            localStorage.setItem('kingPronosInstallBannerDismissed', 'true');
+        }
+
+        function remindLaterInstall() {
+            hideInstallBanner();
+            // Set a temporary dismissal for 24 hours
+            const tomorrow = new Date();
+            tomorrow.setHours(tomorrow.getHours() + 24);
+            localStorage.setItem('kingPronosInstallRemindLater', tomorrow.toISOString());
+        }
 
         // Initialize dark mode detection based on stored preference or system preference
         function initializeDarkMode() {
@@ -3951,6 +4835,11 @@
                 headerActions.innerHTML = '';
                 backBtn.style.display = 'block';
                 menuBtn.style.display = 'none';
+            } else if (sectionId === 'secrets') {
+                headerTitle.textContent = 'Secrets';
+                headerActions.innerHTML = '';
+                backBtn.style.display = 'block';
+                menuBtn.style.display = 'none';
             }
             
             // Re-attach event listeners for new buttons
@@ -4523,12 +5412,21 @@
             document.querySelector('.bottom-nav').style.display = 'flex';
             
             showSection('forecasts');
+            
+            // Initialize ad system after showing main app
+            initializeAdSystem();
         }
 
         function hideMainApp() {
             document.querySelector('.header').style.display = 'none';
             document.querySelector('.main-content').style.display = 'none';
             document.querySelector('.bottom-nav').style.display = 'none';
+            
+            // Stop ad system when hiding main app
+            if (adTimer) {
+                clearInterval(adTimer);
+                adTimer = null;
+            }
         }
 
         function showLoading() {
@@ -4572,6 +5470,18 @@
 
         // Event listeners setup
         function setupEventListeners() {
+            // PWA Install Banner
+            document.getElementById('install-app-btn').addEventListener('click', installApp);
+            document.getElementById('install-later-btn').addEventListener('click', remindLaterInstall);
+            document.getElementById('install-close-btn').addEventListener('click', dismissInstallBanner);
+
+            // Ad Banner
+            document.getElementById('ad-banner-close').addEventListener('click', hideAd);
+            document.getElementById('ad-overlay').addEventListener('click', hideAd);
+            document.getElementById('ad-promo-code').addEventListener('click', () => {
+                copyPromoCode('1x_3154789');
+            });
+
             // Menu
             document.getElementById('menu-btn').addEventListener('click', function() {
                 document.getElementById('side-menu').classList.add('active');
@@ -4589,6 +5499,18 @@
             });
 
             // Menu items
+            document.getElementById('menu-install').addEventListener('click', function() {
+                document.getElementById('side-menu').classList.remove('active');
+                document.getElementById('side-menu-overlay').classList.remove('active');
+                installApp();
+            });
+
+            document.getElementById('menu-secrets').addEventListener('click', function() {
+                document.getElementById('side-menu').classList.remove('active');
+                document.getElementById('side-menu-overlay').classList.remove('active');
+                showSection('secrets');
+            });
+
             document.getElementById('menu-history').addEventListener('click', function() {
                 document.getElementById('side-menu').classList.remove('active');
                 document.getElementById('side-menu-overlay').classList.remove('active');
@@ -4660,6 +5582,11 @@
                 `;
                 
                 showInfoModal('À propos', aboutContent);
+            });
+
+            // Secrets section - promo code copy
+            document.getElementById('promo-code-display').addEventListener('click', function() {
+                copyPromoCode('1x_3154789');
             });
 
             // Info modal
@@ -4778,6 +5705,7 @@
             setupAuth();
             setupTheme();
             setupDarkMode();
+            initializePWA();
             
             console.log('Application KING PRONOS initialisée');
             
@@ -4788,18 +5716,5 @@
             }, 3000);
         });
     </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(registration => {
-          console.log('Service Worker enregistré avec succès :', registration.scope);
-        })
-        .catch(error => {
-          console.log('Échec de l'enregistrement du Service Worker :', error);
-        });
-    });
-  }
-</script>
 </body>
 </html>
