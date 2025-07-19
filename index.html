@@ -124,6 +124,8 @@
             --secret-text: white;
             --ad-bg: rgba(255, 255, 255, 0.95);
             --ad-border: var(--border-color);
+            --secrets-popup-bg: rgba(0, 0, 0, 0.9);
+            --secrets-popup-content-bg: var(--bg-color);
         }
         
         /* Thème vert */
@@ -338,6 +340,7 @@
             --history-date-bg: rgba(93, 92, 222, 0.15);
             --prediction-highlight-bg: rgba(93, 92, 222, 0.2);
             --ad-bg: rgba(44, 44, 44, 0.95);
+            --secrets-popup-content-bg: #222222;
         }
 
         * {
@@ -373,6 +376,148 @@
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
+        }
+
+        /* Secrets Popup Styles */
+        .secrets-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secrets-popup-bg);
+            z-index: 400;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .secrets-popup.show {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .secrets-popup-content {
+            background: var(--secrets-popup-content-bg);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: popupSlideIn 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .secrets-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secrets-popup-close:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .secrets-popup-icon {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .secrets-popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .secrets-popup-text {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .secrets-popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .secrets-popup-btn {
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .secrets-popup-btn.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .secrets-popup-btn.primary:hover {
+            background: #4a49c0;
+            transform: translateY(-2px);
+        }
+
+        .secrets-popup-btn.secondary {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .secrets-popup-btn.secondary:hover {
+            background: var(--border-color);
         }
 
         /* Ad Banner Styles */
@@ -442,27 +587,27 @@
         }
 
         .ad-title {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--primary-color);
         }
 
-        .ad-iframe-container {
-            margin: 10px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .ad-text {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.4;
         }
 
         .ad-promo-code {
             background: var(--promo-bg);
             color: var(--promo-text);
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 12px;
-            margin-top: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
             display: inline-block;
             box-shadow: 0 2px 10px var(--promo-shadow);
             cursor: pointer;
@@ -471,6 +616,23 @@
 
         .ad-promo-code:hover {
             transform: scale(1.05);
+        }
+
+        .ad-cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .ad-cta-button:hover {
+            background: #4a49c0;
+            transform: translateY(-2px);
         }
 
         .ad-overlay {
@@ -788,6 +950,31 @@
             font-size: 14px;
             opacity: 0.8;
             margin-top: 10px;
+        }
+
+        .deposit-requirement {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--warning-color);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid var(--warning-color);
+        }
+
+        .deposit-requirement-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .deposit-requirement-text {
+            font-size: 16px;
+            line-height: 1.4;
         }
 
         .benefits-grid {
@@ -2857,6 +3044,16 @@
                 font-size: 24px;
                 letter-spacing: 2px;
             }
+
+            .secrets-popup-content {
+                padding: 20px;
+                max-width: 350px;
+            }
+
+            .secrets-popup-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -2868,6 +3065,30 @@
         <div style="margin-top: 10px; color: #6b7280;">Chargement...</div>
     </div>
 
+    <!-- Secrets Popup -->
+    <div id="secrets-popup" class="secrets-popup">
+        <div class="secrets-popup-content">
+            <button class="secrets-popup-close" id="secrets-popup-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="secrets-popup-icon">
+                <i class="fas fa-unlock-alt"></i>
+            </div>
+            <div class="secrets-popup-title">Découvrez les Secrets que les Bookmakers vous Cachent !</div>
+            <div class="secrets-popup-text">
+                Obtenez un accès exclusif aux techniques secrètes des professionnels et maximisez vos gains avec des avantages cachés.
+            </div>
+            <div class="secrets-popup-buttons">
+                <button class="secrets-popup-btn primary" id="secrets-popup-view">
+                    <i class="fas fa-eye"></i> Voir les Secrets
+                </button>
+                <button class="secrets-popup-btn secondary" id="secrets-popup-later">
+                    Peut-être plus tard
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Ad Banner -->
     <div id="ad-banner" class="ad-banner">
         <button class="ad-banner-close" id="ad-banner-close">
@@ -2875,10 +3096,13 @@
         </button>
         <div class="ad-content">
             <div class="ad-title">🎰 Promo Spéciale 1XBET</div>
-            <div class="ad-iframe-container">
-                <iframe scrolling='no' frameBorder='0' style='padding:0px; margin:0px; border:0px;border-style:none;border-style:none;' width='192' height='192' src="https://refbanners.com/I?tag=d_4544971m_15811c_&site=4544971&ad=15811"></iframe>
+            <div class="ad-text">
+                Profitez d'offres exclusives et de bonus exceptionnels !
             </div>
             <div class="ad-promo-code" id="ad-promo-code">Code: 1x_3154789</div>
+            <a href="https://reffpa.com/L?tag=d_4544971m_1599c_&site=4544971&ad=1599" target="_blank" class="ad-cta-button">
+                S'inscrire maintenant
+            </a>
         </div>
     </div>
     <div id="ad-overlay" class="ad-overlay"></div>
@@ -3138,6 +3362,16 @@
                     <div class="promo-code-copy">👆 Cliquez pour copier le code</div>
                 </div>
 
+                <div class="deposit-requirement">
+                    <div class="deposit-requirement-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Condition d'Activation
+                    </div>
+                    <div class="deposit-requirement-text">
+                        Pour activer tous ces avantages exclusifs, un dépôt minimum de <strong>1000 FCFA</strong> est requis lors de votre inscription.
+                    </div>
+                </div>
+
                 <div class="benefits-grid">
                     <div class="benefit-card">
                         <div class="benefit-icon">
@@ -3171,16 +3405,6 @@
 
                     <div class="benefit-card">
                         <div class="benefit-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="benefit-title">Assurance Paris</div>
-                        <div class="benefit-description">
-                            Protection sur vos premiers paris perdants avec remboursement garanti
-                        </div>
-                    </div>
-
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
                             <i class="fas fa-crown"></i>
                         </div>
                         <div class="benefit-title">Statut VIP</div>
@@ -3206,7 +3430,7 @@
                         Rejoignez plus de 400 000 parieurs qui utilisent déjà 1XBET pour maximiser leurs profits. 
                         Inscription en 2 minutes, premier bonus immédiat !
                     </div>
-                    <a href="https://1xbet.com" target="_blank" class="cta-button">
+                    <a href="https://reffpa.com/L?tag=d_4544971m_1599c_&site=4544971&ad=1599" target="_blank" class="cta-button">
                         🚀 S'INSCRIRE MAINTENANT
                     </a>
                 </div>
@@ -3681,6 +3905,10 @@
         let adTimer = null;
         let lastAdShown = localStorage.getItem('kingPronosLastAdShown') ? parseInt(localStorage.getItem('kingPronosLastAdShown')) : 0;
 
+        // Secrets popup variables
+        let hasSeenSecretsPopup = localStorage.getItem('kingPronosSeenSecretsPopup') === 'true';
+        let isJustRegistered = false;
+
         // Protection contre la copie
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -3722,6 +3950,44 @@
                 return false;
             }
         });
+
+        // Secrets popup functions
+        function showSecretsPopup(forceShow = false) {
+            if (!forceShow && hasSeenSecretsPopup && !isJustRegistered) {
+                return;
+            }
+
+            const popup = document.getElementById('secrets-popup');
+            const closeBtn = document.getElementById('secrets-popup-close');
+            
+            // Hide close button if just registered (force to see)
+            if (isJustRegistered) {
+                closeBtn.style.display = 'none';
+                document.getElementById('secrets-popup-later').style.display = 'none';
+            } else {
+                closeBtn.style.display = 'flex';
+                document.getElementById('secrets-popup-later').style.display = 'block';
+            }
+            
+            popup.classList.add('show');
+        }
+
+        function hideSecretsPopup() {
+            const popup = document.getElementById('secrets-popup');
+            popup.classList.remove('show');
+            
+            if (!hasSeenSecretsPopup) {
+                hasSeenSecretsPopup = true;
+                localStorage.setItem('kingPronosSeenSecretsPopup', 'true');
+            }
+            
+            isJustRegistered = false;
+        }
+
+        function goToSecrets() {
+            hideSecretsPopup();
+            showSection('secrets');
+        }
 
         // Ad system functions
         function initializeAdSystem() {
@@ -5171,6 +5437,13 @@
                         
                         console.log(`Utilisateur connecté: ${user.email}`);
                         
+                        // Show secrets popup on main app load (but not if just registered)
+                        if (!isJustRegistered) {
+                            setTimeout(() => {
+                                showSecretsPopup();
+                            }, 2000);
+                        }
+                        
                     } catch (error) {
                         console.error(`Erreur initialisation: ${error.message}`);
                         showNotification("Erreur lors de l'initialisation", "error");
@@ -5321,6 +5594,9 @@
                 logElement.className = 'log-message success';
                 logElement.style.display = 'block';
                 
+                // Mark as just registered to force show secrets popup
+                isJustRegistered = true;
+                
             } catch (error) {
                 console.error(`Erreur inscription: ${error.message}`);
                 
@@ -5415,6 +5691,13 @@
             
             // Initialize ad system after showing main app
             initializeAdSystem();
+            
+            // Show secrets popup for new registered users
+            if (isJustRegistered) {
+                setTimeout(() => {
+                    showSecretsPopup(true);
+                }, 1000);
+            }
         }
 
         function hideMainApp() {
@@ -5470,6 +5753,11 @@
 
         // Event listeners setup
         function setupEventListeners() {
+            // Secrets popup
+            document.getElementById('secrets-popup-close').addEventListener('click', hideSecretsPopup);
+            document.getElementById('secrets-popup-view').addEventListener('click', goToSecrets);
+            document.getElementById('secrets-popup-later').addEventListener('click', hideSecretsPopup);
+
             // PWA Install Banner
             document.getElementById('install-app-btn').addEventListener('click', installApp);
             document.getElementById('install-later-btn').addEventListener('click', remindLaterInstall);
