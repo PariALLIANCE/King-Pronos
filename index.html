@@ -958,7 +958,7 @@
             overflow-y: auto;
             height: 100%;
             -webkit-overflow-scrolling: touch;
-            padding-top: 40px; /* Ajout d'espace en haut pour éviter le masquage par le header */
+            padding-top: 40px;
         }
 
         .coming-soon-container {
@@ -966,7 +966,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: calc(100% - 40px); /* Ajustement pour compenser le padding-top */
+            height: calc(100% - 40px);
             text-align: center;
             padding: 40px 20px;
         }
@@ -1638,7 +1638,7 @@
             display: block;
         }
 
-        /* Bottom Navigation */
+        /* Bottom Navigation - Fixed z-index */
         .bottom-nav {
             background-color: var(--bg-color);
             border-top: 1px solid var(--border-color);
@@ -1648,7 +1648,7 @@
             right: 0;
             height: 60px;
             display: flex;
-            z-index: 100;
+            z-index: 95;
             box-shadow: 0 -2px 10px var(--shadow);
         }
 
@@ -1674,6 +1674,8 @@
         .nav-icon {
             font-size: 20px;
             margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
         }
 
         .nav-badge {
@@ -1686,6 +1688,7 @@
             padding: 2px 6px;
             border-radius: 10px;
             font-weight: bold;
+            z-index: 2;
         }
 
         /* Auth screen styles */
@@ -3237,9 +3240,6 @@
             <div class="header-title" id="header-title">Simples</div>
         </div>
         <div class="header-actions">
-            <button class="action-btn" id="search-btn">
-                <i class="fas fa-search"></i>
-            </button>
             <button class="action-btn" id="events-btn">
                 <i class="fas fa-bell"></i>
                 <div class="notification-dot" id="events-notification-dot"></div>
@@ -4987,13 +4987,10 @@
             backBtn.style.display = 'none';
             menuBtn.style.display = 'block';
             
-            // Update based on section
+            // Update based on section - removed search buttons
             if (sectionId === 'forecasts') {
                 headerTitle.textContent = 'Simples';
                 headerActions.innerHTML = `
-                    <button class="action-btn" id="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
                     <button class="action-btn" id="events-btn">
                         <i class="fas fa-bell"></i>
                         <div class="notification-dot" id="events-notification-dot"></div>
@@ -5002,9 +4999,6 @@
             } else if (sectionId === 'ai-forecasts') {
                 headerTitle.textContent = 'Prédictions IA';
                 headerActions.innerHTML = `
-                    <button class="action-btn" id="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
                     <button class="action-btn" id="events-btn">
                         <i class="fas fa-bell"></i>
                         <div class="notification-dot" id="events-notification-dot"></div>
@@ -5028,20 +5022,12 @@
                 `;
             } else if (sectionId === 'events') {
                 headerTitle.textContent = 'Événements';
-                headerActions.innerHTML = `
-                    <button class="action-btn" id="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                `;
+                headerActions.innerHTML = '';
                 backBtn.style.display = 'block';
                 menuBtn.style.display = 'none';
             } else if (sectionId === 'history') {
                 headerTitle.textContent = 'Historique';
-                headerActions.innerHTML = `
-                    <button class="action-btn" id="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                `;
+                headerActions.innerHTML = '';
                 backBtn.style.display = 'block';
                 menuBtn.style.display = 'none';
             } else if (sectionId === 'interface') {
@@ -5057,14 +5043,7 @@
             }
             
             // Re-attach event listeners for new buttons
-            const searchBtn = document.getElementById('search-btn');
             const eventsBtn = document.getElementById('events-btn');
-            
-            if (searchBtn) {
-                searchBtn.addEventListener('click', () => {
-                    showNotification("Fonction de recherche non implémentée", "info");
-                });
-            }
             
             if (eventsBtn) {
                 eventsBtn.addEventListener('click', () => {
