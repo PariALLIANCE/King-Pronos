@@ -958,6 +958,7 @@
             overflow-y: auto;
             height: 100%;
             -webkit-overflow-scrolling: touch;
+            padding-top: 40px; /* Ajout d'espace en haut pour éviter le masquage par le header */
         }
 
         .coming-soon-container {
@@ -965,7 +966,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            height: calc(100% - 40px); /* Ajustement pour compenser le padding-top */
             text-align: center;
             padding: 40px 20px;
         }
@@ -2809,6 +2810,14 @@
             border-left: 4px solid var(--primary-color);
             opacity: 0.9;
             transform: scale(0.98);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .history-forecast-item:hover {
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .history-forecast-item .forecast-status.win {
@@ -5327,6 +5336,11 @@
         function createHistoryForecastElement(forecastData) {
             const element = document.createElement('div');
             element.className = 'history-forecast-item';
+
+            // Ajout du gestionnaire d'événement pour le clic
+            element.addEventListener('click', () => {
+                openForecastDetail(forecastData);
+            });
 
             const content = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
