@@ -119,8 +119,6 @@
             --promo-shadow: rgba(255, 215, 0, 0.3);
             --secret-bg: linear-gradient(135deg, #4CAF50, #2E7D32);
             --secret-text: white;
-            --ad-bg: rgba(255, 255, 255, 0.95);
-            --ad-border: var(--border-color);
             --secrets-popup-bg: rgba(0, 0, 0, 0.9);
             --secrets-popup-content-bg: var(--bg-color);
             --fixed-matches-bg: linear-gradient(135deg, #FF4757, #FF3742);
@@ -318,7 +316,6 @@
             --plan-active-bg: rgba(93, 92, 222, 0.15);
             --history-date-bg: rgba(93, 92, 222, 0.15);
             --prediction-highlight-bg: rgba(93, 92, 222, 0.2);
-            --ad-bg: rgba(44, 44, 44, 0.95);
             --secrets-popup-content-bg: #222222;
         }
 
@@ -497,136 +494,6 @@
 
         .secrets-popup-btn.secondary:hover {
             background: var(--border-color);
-        }
-
-        /* Ad Banner Styles */
-        .ad-banner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--ad-bg);
-            border: 2px solid var(--ad-border);
-            border-radius: 20px;
-            padding: 20px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            z-index: 300;
-            backdrop-filter: blur(10px);
-            max-width: 250px;
-            width: 90%;
-        }
-
-        .ad-banner.show {
-            display: flex;
-            animation: adSlideIn 0.5s ease;
-        }
-
-        @keyframes adSlideIn {
-            from {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .ad-banner-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 18px;
-            cursor: pointer;
-            opacity: 0.7;
-            padding: 5px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ad-banner-close:hover {
-            opacity: 1;
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .ad-content {
-            text-align: center;
-        }
-
-        .ad-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
-        .ad-text {
-            font-size: 14px;
-            margin-bottom: 15px;
-            color: var(--text-color);
-            line-height: 1.4;
-        }
-
-        .ad-promo-code {
-            background: var(--promo-bg);
-            color: var(--promo-text);
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 15px;
-            display: inline-block;
-            box-shadow: 0 2px 10px var(--promo-shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .ad-promo-code:hover {
-            transform: scale(1.05);
-        }
-
-        .ad-cta-button {
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .ad-cta-button:hover {
-            background: #4a49c0;
-            transform: translateY(-2px);
-        }
-
-        .ad-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 299;
-            display: none;
-        }
-
-        .ad-overlay.show {
-            display: block;
         }
 
         /* Header */
@@ -1509,6 +1376,7 @@
             align-items: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            position: relative;
         }
         
         .side-menu-item:hover {
@@ -1528,6 +1396,16 @@
         .side-menu-text {
             margin-left: 15px;
             font-weight: 500;
+        }
+
+        .menu-badge {
+            background: var(--warning-color);
+            color: white;
+            font-size: 8px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-left: auto;
         }
         
         .side-menu-footer {
@@ -2960,24 +2838,6 @@
         </div>
     </div>
 
-    <!-- Ad Banner -->
-    <div id="ad-banner" class="ad-banner">
-        <button class="ad-banner-close" id="ad-banner-close">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="ad-content">
-            <div class="ad-title">🎰 Promo Spéciale 1XBET</div>
-            <div class="ad-text">
-                Profitez d'offres exclusives et de bonus exceptionnels !
-            </div>
-            <div class="ad-promo-code" id="ad-promo-code">Code: 1x_3154789</div>
-            <a href="https://reffpa.com/L?tag=d_4544971m_1599c_&site=4544971&ad=1599" target="_blank" class="ad-cta-button">
-                S'inscrire maintenant
-            </a>
-        </div>
-    </div>
-    <div id="ad-overlay" class="ad-overlay"></div>
-
     <!-- Auth Screen -->
     <div id="auth-screen" class="auth-screen" style="display: none;">
         <div class="auth-header">
@@ -3072,7 +2932,7 @@
             <div class="side-menu-item" id="menu-icebet">
                 <i class="fas fa-snowflake"></i>
                 <div class="side-menu-text">ICEBET</div>
-                <div class="nav-badge" style="margin-left: 10px;">Bientôt</div>
+                <div class="menu-badge">Bientôt</div>
             </div>
             <div class="side-menu-item" id="menu-history">
                 <i class="fas fa-history"></i>
@@ -3785,10 +3645,6 @@
         let deferredInstallPrompt = null;
         let isAppInstalled = false;
 
-        // Ad system variables
-        let adTimer = null;
-        let lastAdShown = localStorage.getItem('kingPronosLastAdShown') ? parseInt(localStorage.getItem('kingPronosLastAdShown')) : 0;
-
         // Protection contre la copie
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -3845,44 +3701,6 @@
         function goToSecrets() {
             hideSecretsPopup();
             showSection('secrets');
-        }
-
-        // Ad system functions
-        function initializeAdSystem() {
-            // Show ad every 3-5 minutes randomly
-            const adInterval = Math.random() * (5 - 3) + 3; // 3 to 5 minutes
-            
-            adTimer = setInterval(() => {
-                const now = Date.now();
-                // Don't show if ad was shown in the last 2 minutes
-                if (now - lastAdShown > 2 * 60 * 1000) {
-                    showAd();
-                }
-            }, adInterval * 60 * 1000);
-        }
-
-        function showAd() {
-            const adBanner = document.getElementById('ad-banner');
-            const adOverlay = document.getElementById('ad-overlay');
-            
-            adBanner.classList.add('show');
-            adOverlay.classList.add('show');
-            
-            lastAdShown = Date.now();
-            localStorage.setItem('kingPronosLastAdShown', lastAdShown.toString());
-            
-            // Auto-hide after 8 seconds
-            setTimeout(() => {
-                hideAd();
-            }, 8000);
-        }
-
-        function hideAd() {
-            const adBanner = document.getElementById('ad-banner');
-            const adOverlay = document.getElementById('ad-overlay');
-            
-            adBanner.classList.remove('show');
-            adOverlay.classList.remove('show');
         }
 
         function copyPromoCode(code) {
@@ -5385,21 +5203,12 @@
             document.querySelector('.bottom-nav').style.display = 'flex';
             
             showSection('forecasts');
-            
-            // Initialize ad system after showing main app
-            initializeAdSystem();
         }
 
         function hideMainApp() {
             document.querySelector('.header').style.display = 'none';
             document.querySelector('.main-content').style.display = 'none';
             document.querySelector('.bottom-nav').style.display = 'none';
-            
-            // Stop ad system when hiding main app
-            if (adTimer) {
-                clearInterval(adTimer);
-                adTimer = null;
-            }
         }
 
         function showLoading() {
@@ -5447,13 +5256,6 @@
             document.getElementById('secrets-popup-close').addEventListener('click', hideSecretsPopup);
             document.getElementById('secrets-popup-view').addEventListener('click', goToSecrets);
             document.getElementById('secrets-popup-later').addEventListener('click', hideSecretsPopup);
-
-            // Ad Banner
-            document.getElementById('ad-banner-close').addEventListener('click', hideAd);
-            document.getElementById('ad-overlay').addEventListener('click', hideAd);
-            document.getElementById('ad-promo-code').addEventListener('click', () => {
-                copyPromoCode('1x_3154789');
-            });
 
             // Menu
             document.getElementById('menu-btn').addEventListener('click', function() {
