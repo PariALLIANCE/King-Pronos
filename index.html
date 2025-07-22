@@ -125,6 +125,8 @@
             --secrets-popup-content-bg: var(--bg-color);
             --fixed-matches-bg: linear-gradient(135deg, #FF4757, #FF3742);
             --fixed-matches-text: white;
+            --investment-bg: linear-gradient(135deg, #4CAF50, #2E7D32);
+            --investment-text: white;
         }
         
         /* Thème vert */
@@ -952,8 +954,8 @@
             transform: translateY(-2px);
         }
 
-        /* Fixed Matches Section */
-        .fixed-matches-container {
+        /* Investment Section */
+        .investment-container {
             padding: 20px;
             overflow-y: auto;
             height: 100%;
@@ -973,9 +975,9 @@
 
         .coming-soon-icon {
             font-size: 100px;
-            color: var(--fixed-matches-bg);
+            color: var(--investment-bg);
             margin-bottom: 30px;
-            background: var(--fixed-matches-bg);
+            background: var(--investment-bg);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1024,6 +1026,15 @@
             color: var(--success-color);
             margin-right: 12px;
             font-size: 18px;
+        }
+
+        /* Fixed Matches Section */
+        .fixed-matches-container {
+            padding: 20px;
+            overflow-y: auto;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+            padding-top: 40px;
         }
 
         /* Forecast Cards Container - Fixed for scrolling */
@@ -1442,57 +1453,6 @@
         .score-probability {
             font-size: 10px;
             color: var(--inactive-text);
-        }
-
-        /* AI Forecasts Tabs */
-        .ai-forecasts-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin: 0;
-            background-color: var(--bg-color);
-            position: sticky;
-            top: 0;
-            z-index: 5;
-            flex-shrink: 0;
-        }
-        
-        .ai-forecast-tab {
-            flex: 1;
-            text-align: center;
-            padding: 12px 0;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            position: relative;
-            color: var(--inactive-text);
-            transition: color 0.3s, background-color 0.2s ease;
-        }
-        
-        .ai-forecast-tab.active {
-            color: var(--primary-color);
-        }
-        
-        .ai-forecast-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 20%;
-            width: 60%;
-            height: 3px;
-            background-color: var(--primary-color);
-            border-radius: 3px 3px 0 0;
-            animation: slideIn 0.3s ease;
-        }
-
-        .ai-forecasts-content {
-            display: none;
-            flex: 1;
-            overflow: hidden;
-        }
-        
-        .ai-forecasts-content.active {
-            display: flex;
-            flex-direction: column;
         }
 
         /* Loading and Empty States */
@@ -3237,7 +3197,7 @@
             <button class="menu-btn" id="menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="header-title" id="header-title">Simples</div>
+            <div class="header-title" id="header-title">Pronostics</div>
         </div>
         <div class="header-actions">
             <button class="action-btn" id="events-btn">
@@ -3249,7 +3209,7 @@
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <!-- Simple Forecasts Section -->
+        <!-- Forecasts Section (unified pronostics) -->
         <div id="forecasts-section" class="section active">
             <div class="forecasts-container" id="forecasts-container">
                 <!-- Loading state -->
@@ -3261,20 +3221,53 @@
             </div>
         </div>
 
-        <!-- AI Forecasts Section -->
-        <div id="ai-forecasts-section" class="section">
-            <div class="ai-forecasts-tabs">
-                <div class="ai-forecast-tab active" data-tab="ia-singles">Singles Premium</div>
-                <div class="ai-forecast-tab" data-tab="safes">Safes</div>
-            </div>
-            
-            <div class="ai-forecasts-content active" id="ia-singles-content">
-                <div class="forecasts-container" id="ia-singles-list">
-                </div>
-            </div>
-
-            <div class="ai-forecasts-content" id="safes-content">
-                <div class="forecasts-container" id="safes-list">
+        <!-- Investment Section -->
+        <div id="investment-section" class="section">
+            <div class="investment-container">
+                <div class="coming-soon-container">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="coming-soon-title">Investissement du Jour</div>
+                    <div class="coming-soon-subtitle">Cette section révolutionnaire arrive très bientôt !</div>
+                    
+                    <div class="coming-soon-features">
+                        <div class="coming-soon-features-title">Ce qui vous attend :</div>
+                        
+                        <div class="coming-soon-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Stratégies d'investissement exclusives</span>
+                        </div>
+                        
+                        <div class="coming-soon-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Analyses de marché en temps réel</span>
+                        </div>
+                        
+                        <div class="coming-soon-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Recommandations personnalisées</span>
+                        </div>
+                        
+                        <div class="coming-soon-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Gestion de portefeuille avancée</span>
+                        </div>
+                        
+                        <div class="coming-soon-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Alertes de trading automatiques</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 20px; background: var(--warning-bg); border-radius: 15px; border: 2px solid var(--warning-color);">
+                        <div style="font-size: 16px; font-weight: bold; color: var(--warning-color); margin-bottom: 10px;">
+                            💰 Préparez vos investissements !
+                        </div>
+                        <div style="font-size: 14px; color: var(--text-color); opacity: 0.8;">
+                            Cette section proposera des stratégies d'investissement et de trading sophistiquées pour maximiser vos retours financiers.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3747,11 +3740,12 @@
     <div class="bottom-nav" id="bottom-nav">
         <div class="nav-item active" data-section="forecasts">
             <i class="nav-icon fas fa-futbol"></i>
-            <span>Simples</span>
+            <span>Pronostics</span>
         </div>
-        <div class="nav-item" data-section="ai-forecasts">
-            <i class="nav-icon fas fa-brain"></i>
-            <span>Prédictions IA</span>
+        <div class="nav-item" data-section="investment">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <span>Investissement</span>
+            <div class="nav-badge">Bientôt</div>
         </div>
         <div class="nav-item" data-section="fixed-matches">
             <i class="nav-icon fas fa-fire"></i>
@@ -3900,7 +3894,6 @@
         let currentUserData = null;
         let isAdmin = false;
         let currentSection = 'forecasts';
-        let currentForecastTab = 'ia-singles';
         let forecastsCache = {};
         let selectedForecast = null;
         let hasNewEvents = false;
@@ -4394,86 +4387,36 @@
             }
         }
 
-        // Function to process and categorize forecasts - updated for new JSON structure
+        // Function to process and categorize forecasts - updated for new unified JSON structure
         function processForecastData(data) {
             const processed = {
-                'ia-singles': [],
-                safes: [],
-                simple: []
+                'pronostics': []
             };
 
-            if (!data) {
+            if (!data || !data.pronostics || !data.pronostics.details) {
                 return processed;
             }
 
-            // Traiter les "Singles Premium" depuis ia_singles_premium.details
-            if (data.ia_singles_premium && data.ia_singles_premium.details) {
-                data.ia_singles_premium.details.forEach(forecast => {
-                    processed['ia-singles'].push({
-                        id: forecast.id,
-                        HomeTeam: forecast.HomeTeam,
-                        AwayTeam: forecast.AwayTeam,
-                        confidence: forecast.confidence,
-                        date: forecast.date,
-                        league: forecast.league,
-                        country: forecast.country,
-                        prediction: forecast.prediction,
-                        type: 'single',
-                        poisson_probabilities: forecast.poisson_probabilities,
-                        poisson_top_scores: forecast.poisson_top_scores,
-                        score_prediction: forecast.score_prediction,
-                        logo_home: forecast.logo_home,
-                        logo_away: forecast.logo_away,
-                        analyse_ia: forecast.analyse_ia
-                    });
+            // Traiter tous les pronostics depuis la structure unifiée
+            data.pronostics.details.forEach(forecast => {
+                processed.pronostics.push({
+                    id: forecast.id,
+                    HomeTeam: forecast.HomeTeam,
+                    AwayTeam: forecast.AwayTeam,
+                    confidence: forecast.confidence,
+                    date: forecast.date,
+                    league: forecast.league,
+                    country: forecast.country_fr || forecast.country,
+                    prediction: forecast.prediction,
+                    type: forecast.type,
+                    poisson_probabilities: forecast.poisson_probabilities,
+                    poisson_top_scores: forecast.poisson_top_scores,
+                    score_prediction: forecast.score_prediction,
+                    logo_home: forecast.logo_home,
+                    logo_away: forecast.logo_away,
+                    analyse_ia: forecast.analyse_ia
                 });
-            }
-
-            // Traiter les "safes" depuis recommandations.safest_bets
-            if (data.recommandations && data.recommandations.safest_bets) {
-                data.recommandations.safest_bets.forEach(forecast => {
-                    processed.safes.push({
-                        id: forecast.id,
-                        HomeTeam: forecast.HomeTeam,
-                        AwayTeam: forecast.AwayTeam,
-                        confidence: forecast.confidence,
-                        date: forecast.date,
-                        league: forecast.league,
-                        country: forecast.country,
-                        prediction: forecast.prediction,
-                        type: 'single',
-                        poisson_probabilities: forecast.poisson_probabilities,
-                        poisson_top_scores: forecast.poisson_top_scores,
-                        score_prediction: forecast.score_prediction,
-                        logo_home: forecast.logo_home,
-                        logo_away: forecast.logo_away,
-                        analyse_ia: forecast.analyse_ia
-                    });
-                });
-            }
-
-            // Traiter les pronostics simples depuis predictions_simples.details
-            if (data.predictions_simples && data.predictions_simples.details) {
-                data.predictions_simples.details.forEach(forecast => {
-                    processed.simple.push({
-                        id: forecast.id,
-                        HomeTeam: forecast.HomeTeam,
-                        AwayTeam: forecast.AwayTeam,
-                        confidence: forecast.confidence,
-                        date: forecast.date,
-                        league: forecast.league,
-                        country: forecast.country,
-                        prediction: forecast.prediction,
-                        type: 'single',
-                        poisson_probabilities: forecast.poisson_probabilities,
-                        poisson_top_scores: forecast.poisson_top_scores,
-                        score_prediction: forecast.score_prediction,
-                        logo_home: forecast.logo_home,
-                        logo_away: forecast.logo_away,
-                        analyse_ia: forecast.analyse_ia
-                    });
-                });
-            }
+            });
 
             return processed;
         }
@@ -4834,18 +4777,8 @@
         }
 
         // Function to load forecasts data
-        async function loadForecastsData(tabType) {
-            if (forecastsCache[tabType]) {
-                displayForecastsFromCache(tabType);
-                return;
-            }
-            
-            let listElement;
-            if (currentSection === 'ai-forecasts') {
-                listElement = document.getElementById(`${tabType}-list`);
-            } else {
-                listElement = document.getElementById('forecasts-container');
-            }
+        async function loadForecastsData() {
+            const listElement = document.getElementById('forecasts-container');
             
             if (!listElement) return;
             
@@ -4865,7 +4798,7 @@
                     listElement.innerHTML = `
                         <div class="empty-state">
                             <i class="fas fa-calendar-day"></i>
-                            <h3>Aucune prédiction fiable pour cette section</h3>
+                            <h3>Aucune prédiction fiable</h3>
                             <p>Aucun pronostic disponible pour aujourd'hui</p>
                         </div>
                     `;
@@ -4876,15 +4809,9 @@
                 const processedData = processForecastData(githubData);
                 
                 // Cache the processed data
-                Object.keys(processedData).forEach(type => {
-                    forecastsCache[type] = processedData[type];
-                });
+                forecastsCache['pronostics'] = processedData.pronostics;
                 
-                if (currentSection === 'ai-forecasts') {
-                    displayForecastsFromCache(tabType);
-                } else {
-                    displayForecastsFromCache('simple');
-                }
+                displayForecastsFromCache();
                 
             } catch (error) {
                 console.error(`Erreur chargement pronostics: ${error.message}`);
@@ -4899,26 +4826,21 @@
         }
 
         // Function to display forecasts from cache
-        function displayForecastsFromCache(tabType) {
-            let listElement;
-            if (currentSection === 'ai-forecasts') {
-                listElement = document.getElementById(`${tabType}-list`);
-            } else {
-                listElement = document.getElementById('forecasts-container');
-            }
+        function displayForecastsFromCache() {
+            const listElement = document.getElementById('forecasts-container');
             
-            if (!listElement || !forecastsCache[tabType]) return;
+            if (!listElement || !forecastsCache['pronostics']) return;
             
             listElement.innerHTML = '';
             
-            const forecasts = forecastsCache[tabType];
+            const forecasts = forecastsCache['pronostics'];
             
             if (forecasts.length === 0) {
                 listElement.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-futbol"></i>
-                        <h3>Aucune prédiction fiable pour cette section</h3>
-                        <p>Aucun pronostic disponible pour cette catégorie</p>
+                        <h3>Aucune prédiction fiable</h3>
+                        <p>Aucun pronostic disponible pour le moment</p>
                     </div>
                 `;
                 return;
@@ -4960,9 +4882,7 @@
             
             // Load data for section
             if (sectionId === 'forecasts') {
-                loadForecastsData('simple');
-            } else if (sectionId === 'ai-forecasts') {
-                loadForecastsData(currentForecastTab);
+                loadForecastsData();
             } else if (sectionId === 'events') {
                 loadEvents();
             } else if (sectionId === 'history') {
@@ -4972,6 +4892,8 @@
                 setupDarkMode();
             } else if (sectionId === 'profile') {
                 // No need to load avatar grid in profile
+            } else if (sectionId === 'investment') {
+                // Coming soon section - no data to load
             } else if (sectionId === 'fixed-matches') {
                 // Coming soon section - no data to load
             }
@@ -4989,15 +4911,15 @@
             
             // Update based on section - removed search buttons
             if (sectionId === 'forecasts') {
-                headerTitle.textContent = 'Simples';
+                headerTitle.textContent = 'Pronostics';
                 headerActions.innerHTML = `
                     <button class="action-btn" id="events-btn">
                         <i class="fas fa-bell"></i>
                         <div class="notification-dot" id="events-notification-dot"></div>
                     </button>
                 `;
-            } else if (sectionId === 'ai-forecasts') {
-                headerTitle.textContent = 'Prédictions IA';
+            } else if (sectionId === 'investment') {
+                headerTitle.textContent = 'Investissement';
                 headerActions.innerHTML = `
                     <button class="action-btn" id="events-btn">
                         <i class="fas fa-bell"></i>
@@ -5058,28 +4980,6 @@
                 const dot = document.getElementById('events-notification-dot');
                 if (dot) dot.classList.add('active');
             }
-        }
-
-        function switchAIForecastTab(tabId) {
-            currentForecastTab = tabId;
-            
-            document.querySelectorAll('.ai-forecast-tab').forEach(tab => {
-                if (tab.getAttribute('data-tab') === tabId) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-            
-            document.querySelectorAll('.ai-forecasts-content').forEach(content => {
-                if (content.id === `${tabId}-content`) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
-            });
-            
-            loadForecastsData(tabId);
         }
 
         // Events functions
@@ -5245,12 +5145,12 @@
             dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 2);
 
             // Display yesterday's data
-            if (yesterdayData && Object.values(yesterdayData).some(arr => arr.length > 0)) {
+            if (yesterdayData && yesterdayData.pronostics && yesterdayData.pronostics.length > 0) {
                 historyContent.appendChild(createHistoryDateSection(yesterday, yesterdayData));
             }
 
             // Display day before yesterday's data
-            if (dayBeforeYesterdayData && Object.values(dayBeforeYesterdayData).some(arr => arr.length > 0)) {
+            if (dayBeforeYesterdayData && dayBeforeYesterdayData.pronostics && dayBeforeYesterdayData.pronostics.length > 0) {
                 historyContent.appendChild(createHistoryDateSection(dayBeforeYesterday, dayBeforeYesterdayData));
             }
 
@@ -5279,35 +5179,27 @@
             });
             section.appendChild(dateHeader);
 
-            // Display each category - removed "combines"
-            const categories = [
-                { key: 'simple', title: 'Pronostics Simples' },
-                { key: 'ia-singles', title: 'Singles Premium' },
-                { key: 'safes', title: 'Pronostics Safes' }
-            ];
+            // Display pronostics category
+            if (data.pronostics && data.pronostics.length > 0) {
+                const categorySection = document.createElement('div');
+                categorySection.className = 'history-category-section';
 
-            categories.forEach(category => {
-                if (data[category.key] && data[category.key].length > 0) {
-                    const categorySection = document.createElement('div');
-                    categorySection.className = 'history-category-section';
+                const categoryTitle = document.createElement('div');
+                categoryTitle.className = 'history-category-title';
+                categoryTitle.textContent = `Pronostics du jour (${data.pronostics.length})`;
+                categorySection.appendChild(categoryTitle);
 
-                    const categoryTitle = document.createElement('div');
-                    categoryTitle.className = 'history-category-title';
-                    categoryTitle.textContent = `${category.title} (${data[category.key].length})`;
-                    categorySection.appendChild(categoryTitle);
+                const forecastsList = document.createElement('div');
+                forecastsList.className = 'history-forecasts-list';
 
-                    const forecastsList = document.createElement('div');
-                    forecastsList.className = 'history-forecasts-list';
+                data.pronostics.forEach(forecast => {
+                    const historyItem = createHistoryForecastElement(forecast);
+                    forecastsList.appendChild(historyItem);
+                });
 
-                    data[category.key].forEach(forecast => {
-                        const historyItem = createHistoryForecastElement(forecast);
-                        forecastsList.appendChild(historyItem);
-                    });
-
-                    categorySection.appendChild(forecastsList);
-                    section.appendChild(categorySection);
-                }
-            });
+                categorySection.appendChild(forecastsList);
+                section.appendChild(categorySection);
+            }
 
             return section;
         }
@@ -5768,11 +5660,12 @@
                     <p>Fournir aux passionnés de sport des analyses approfondies et des pronostics fiables basés sur des données statistiques avancées et des algorithmes d'IA.</p>
                     
                     <h3>Fonctionnalités</h3>
-                    <p>• Pronostics simples quotidiens<br>
-                    • Singles Premium avec analyse IA<br>
-                    • Pronostics Safes à faible risque<br>
-                    • Analyses détaillées avec probabilités<br>
+                    <p>• Pronostics unifiés quotidiens<br>
+                    • Analyses IA détaillées<br>
+                    • Probabilités de Poisson<br>
+                    • Prédictions de scores<br>
                     • Interface moderne et intuitive<br>
+                    • Investissement du jour (bientôt)<br>
                     • Accès aux matchs truqués (bientôt disponible)</p>
                     
                     <h3>Technologie</h3>
@@ -5806,14 +5699,6 @@
                 item.addEventListener('click', function() {
                     const section = this.dataset.section;
                     showSection(section);
-                });
-            });
-
-            // AI forecast tabs - updated for new tabs
-            document.querySelectorAll('.ai-forecast-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    switchAIForecastTab(tabId);
                 });
             });
 
