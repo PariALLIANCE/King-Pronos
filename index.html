@@ -123,8 +123,10 @@
             --secrets-popup-content-bg: var(--bg-color);
             --fixed-matches-bg: linear-gradient(135deg, #FF4757, #FF3742);
             --fixed-matches-text: white;
-            --investment-bg: linear-gradient(135deg, #4CAF50, #2E7D32);
-            --investment-text: white;
+            --icegame-bg: linear-gradient(135deg, #2196F3, #1976D2);
+            --icegame-text: white;
+            --coming-soon-bg: linear-gradient(135deg, #9E9E9E, #757575);
+            --coming-soon-text: white;
         }
         
         /* Thème vert */
@@ -317,6 +319,7 @@
             --history-date-bg: rgba(93, 92, 222, 0.15);
             --prediction-highlight-bg: rgba(93, 92, 222, 0.2);
             --secrets-popup-content-bg: #222222;
+            --coming-soon-bg: linear-gradient(135deg, #616161, #424242);
         }
 
         * {
@@ -821,8 +824,8 @@
             transform: translateY(-2px);
         }
 
-        /* Investment Section */
-        .investment-container {
+        /* Icegame Section */
+        .icegame-container {
             padding: 20px;
             overflow-y: auto;
             height: 100%;
@@ -830,7 +833,7 @@
             padding-top: 40px;
         }
 
-        .simple-message-container {
+        .coming-soon-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -838,12 +841,35 @@
             height: calc(100% - 40px);
             text-align: center;
             padding: 40px 20px;
+            background: var(--coming-soon-bg);
+            color: var(--coming-soon-text);
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        .simple-message-text {
-            font-size: 24px;
+        .coming-soon-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: clockRotate 2s ease-in-out infinite;
+        }
+
+        @keyframes clockRotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .coming-soon-title {
+            font-size: 32px;
             font-weight: bold;
-            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .coming-soon-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
             line-height: 1.4;
             max-width: 600px;
         }
@@ -2803,6 +2829,18 @@
                 flex-direction: column;
                 gap: 10px;
             }
+
+            .coming-soon-icon {
+                font-size: 60px;
+            }
+
+            .coming-soon-title {
+                font-size: 24px;
+            }
+
+            .coming-soon-subtitle {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -3039,12 +3077,18 @@
             </div>
         </div>
 
-        <!-- Investment Section -->
-        <div id="investment-section" class="section">
-            <div class="investment-container">
-                <div class="simple-message-container">
-                    <div class="simple-message-text">
-                        Nous sommes en train de transformer les paris sportifs en investissement très rentable
+        <!-- Icegame Section -->
+        <div id="icegame-section" class="section">
+            <div class="icegame-container">
+                <div class="coming-soon-container">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="coming-soon-title">
+                        ICEGAME
+                    </div>
+                    <div class="coming-soon-subtitle">
+                        Bientôt disponible
                     </div>
                 </div>
             </div>
@@ -3177,9 +3221,15 @@
         <!-- Fixed Matches Section -->
         <div id="fixed-matches-section" class="section">
             <div class="fixed-matches-container">
-                <div class="simple-message-container">
-                    <div class="simple-message-text">
-                        En cours de négociation pour ajouter aux avantages du code promo
+                <div class="coming-soon-container">
+                    <div class="coming-soon-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="coming-soon-title">
+                        MATCHS TRUQUÉS
+                    </div>
+                    <div class="coming-soon-subtitle">
+                        Bientôt disponible
                     </div>
                 </div>
             </div>
@@ -3480,9 +3530,9 @@
             <i class="nav-icon fas fa-futbol"></i>
             <span>Pronostics</span>
         </div>
-        <div class="nav-item" data-section="investment">
-            <i class="nav-icon fas fa-chart-line"></i>
-            <span>Investissement</span>
+        <div class="nav-item" data-section="icegame">
+            <i class="nav-icon fas fa-gamepad"></i>
+            <span>Icegame</span>
             <div class="nav-badge">Bientôt</div>
         </div>
         <div class="nav-item" data-section="fixed-matches">
@@ -4588,7 +4638,7 @@
                 setupDarkMode();
             } else if (sectionId === 'profile') {
                 // No need to load avatar grid in profile
-            } else if (sectionId === 'investment') {
+            } else if (sectionId === 'icegame') {
                 // Coming soon section - no data to load
             } else if (sectionId === 'fixed-matches') {
                 // Coming soon section - no data to load
@@ -4614,8 +4664,8 @@
                         <div class="notification-dot" id="events-notification-dot"></div>
                     </button>
                 `;
-            } else if (sectionId === 'investment') {
-                headerTitle.textContent = 'Investissement';
+            } else if (sectionId === 'icegame') {
+                headerTitle.textContent = 'Icegame';
                 headerActions.innerHTML = `
                     <button class="action-btn" id="events-btn">
                         <i class="fas fa-bell"></i>
@@ -5351,7 +5401,7 @@
                     • Probabilités de Poisson<br>
                     • Prédictions de scores<br>
                     • Interface moderne et intuitive<br>
-                    • Investissement du jour (bientôt)<br>
+                    • Icegame (bientôt disponible)<br>
                     • Accès aux matchs truqués (bientôt disponible)<br>
                     • ICEBET (bientôt disponible)</p>
                     
